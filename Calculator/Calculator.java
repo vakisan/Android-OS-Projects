@@ -73,7 +73,7 @@ public class Calculator {
 
     public void divide() {
         StringBuilder stringToProcess = new StringBuilder(getOriginalInput());
-        String dividePattern = "[0-9]+/[0-9]+";
+        String dividePattern = "[0-9]+\\.?[0-9]*/[0-9]+\\.?[0-9]*";
         Pattern brackets = Pattern.compile(dividePattern);
         Matcher matcher = brackets.matcher(stringToProcess);
         String temp = null;
@@ -83,8 +83,8 @@ public class Calculator {
             int indexEnd = matcher.end();
             temp = stringToProcess.substring(indexStart, indexEnd);
             String[] array = temp.split("/");
-            int value = Integer.parseInt(array[0]) / Integer.parseInt(array[1]);
-            stringToProcess.replace(indexStart, indexEnd, Integer.toString(value));
+            double value = Double.parseDouble(array[0]) / Double.parseDouble(array[1]);
+            stringToProcess.replace(indexStart, indexEnd, Double.toString(value));
             System.out.println("End : " + stringToProcess);
             matcher = brackets.matcher(stringToProcess);
             value = 0;
@@ -140,7 +140,8 @@ public class Calculator {
 
     public static void main(String[] args) {
         String maths = "3+3/3*2*4+5*5-3";
-        maths = "4+5*3+0/3+6*6-4*10-54/2*4"; // suceess
+        maths = "4+5*3+0/3+6*6-4*10-54/2*4";
+        maths = "4.4/2";
         Calculator calc = new Calculator(maths);
     }
 }
